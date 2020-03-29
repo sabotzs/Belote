@@ -4,6 +4,7 @@ from carre import Carre
 from card import Card
 from consecutive import Consecutive
 from carre import Carre
+from belote import Belote
 
 class TestAnnouncement(unittest.TestCase):
     def test_get_consecutive_passes_with_two_tierces_from_same_suit(self):
@@ -200,6 +201,37 @@ class TestAnnouncement(unittest.TestCase):
             Carre([Card('Q','c'), Card('Q','s'), Card('Q','d'), Card('Q','h')])
 
         ]
+        self.assertEqual(result,expected)
+
+    def test_get_belote(self):
+        ann = Announcement()
+        hand = [
+        [Card('Q','s'),Card('K','s')],[],[],[]
+        ]
+        result = ann.get_belotes(hand)
+        expected = [Belote([Card('Q','s'),Card('K','s')])]
+        self.assertEqual(result,expected)
+
+    def test_hand_with_no_belotes(self):
+        ann = Announcement()
+        hand = [[],[],[],[]]
+        result = ann.get_belotes(hand)
+        expected = []
+        self.assertEqual(result,expected)
+
+    def test_with_three_belotes(self):
+        ann = Announcement()
+        hand =  [
+             [Card('Q','s'),Card('K','s')],
+             [Card('Q','c'),Card('K','c')],
+             [Card('Q','d'),Card('K','d')],
+             [Card('Q','h'),Card('K','h')]
+        ]
+        result = ann.get_belotes(hand)
+        expected = [Belote([Card('Q','s'),Card('K','s')]),
+            Belote([Card('Q','c'),Card('K','c')]),
+            Belote([Card('Q','d'),Card('K','d')]),
+            Belote([Card('Q','h'),Card('K','h')])]
         self.assertEqual(result,expected)
 
 if __name__ == '__main__':
