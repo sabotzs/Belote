@@ -1,7 +1,7 @@
 from card import list_of_faces
 
 def get_face_index(card):
-	for i in range(len(list_of_faces)):
+    for i in range(len(list_of_faces)):
 		if card.face == list_of_faces[i]:
 			return i
 
@@ -41,4 +41,3 @@ def sort_hand(hand):
 	parts = []
 	sort_hand_by_face(hand, parts, 0, 1)
 	return parts
-	

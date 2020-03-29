@@ -2,7 +2,7 @@ list_of_faces = ['7','8','9','10','J','Q','K','A']
 list_of_suits = ['c', 'd', 'h', 's']
 
 class Card:
-	def __init__(self, face, suit):
+    def __init__(self, face, suit):
 		if face not in list_of_faces:
 			raise ValueError("Invalid face")
 		if suit not in list_of_suits:
