@@ -202,7 +202,6 @@ class TestAnnouncement(unittest.TestCase):
         ]
         self.assertEqual(result,expected)
 
-	class TestCarre(unittest.TestCase):
     def test_get_carres_return_empty_list_when_no_carre(self):
         ann = Announcement()
         hand = [
