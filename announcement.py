@@ -27,9 +27,9 @@ class Announcement:
         belotes = []
         
         for suit in hand:
-            for i in range(len(suit)+1):
-                if suit[i].face == 'Q' and suit[i+1] == 'K':
-                    belote.append(Belote([suit[i],suit[i+1]]))
+            for i in range(len(suit)-1):
+                if suit[i].face == 'Q' and suit[i+1].face == 'K':
+                    belotes.append(Belote([suit[i],suit[i+1]]))
         
         return belotes
 
