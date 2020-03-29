@@ -20,6 +20,9 @@ class Card:
     def __eq__(self, other):
         return self.face == other.face and self.suit == other.suit
 
+    def __hash__(self):
+        return hash((self.face, self.suit))
+
     def __gt__(self, other):
         for i in range(len(list_of_faces)):
             if self.face == list_of_faces[i]:

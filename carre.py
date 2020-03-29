@@ -11,10 +11,7 @@ class Carre:
             return 100
 
     def __repr__(self):
-        for i in range(len(self.cards)):
-            print(self.cards[i])
         return 'carre'
-
 
     def __eq__(self, other):
         return self.cards == other.cards

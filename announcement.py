@@ -1,9 +1,12 @@
 from consecutive import Consecutive
+from carre import Carre
+from belote import Belote
 from card import list_of_faces
 from carre import Carre
 
+
 class Announcement:
-    def get_consecutive(self, hand):
+    def get_consecutives(self, hand):
         cons = []
         
         for suit in hand:
@@ -18,7 +21,6 @@ class Announcement:
             if counter > 2:
                 element = Consecutive(suit[len(suit)-counter:])
                 cons.append(element)
-
         return cons
 
     def get_belotes(self, hand):
@@ -47,17 +49,33 @@ class Announcement:
 
         return carres
 
-    def check_consecutive_and_carres(self,consecs, carres):
-        pass
 
+    def check_consecutive_and_carres(self,consecs, carres):
+        for carre_idx in range(len(carres)):
+            for consec_idx in range(len(consecs)):
+                intersection = list(set(carres[carre_idx].cards) & set(consecs[consec_idx].cards))
+                if len(intersection) == 1:
+                    if len(consecs[consec_idx].cards) < 5:
+                        del consecs[consec_idx]
+                        --consec_idx
+                    elif intersection[0].face == '9'or intersection[0].face == 'J':
+                        del consecs[consec_idx]
+                        --consec_idx
+                    else:
+                        del carres[carre_idx]
+                        --carre_idx
 
     def get_announcements(self,hand):
-        consecutive = self.get_consecutives(hand)
+        consecutives = self.get_consecutives(hand)
         carres = self.get_carres(hand)
-        #TO DO
-        belotes = self.get_belotes(hand)
-        announcements = []
-        #TO DO
+        self.check_consecutive_and_carres(consecutives, carres)
+
+        announcements = self.get_belotes(hand)
+        for consec in consecutives:
+            announcements.append(consec)
+        for carre in carres:
+            announcements.append(carre)
+        return announcements
 
     def are_consecutive(self, first, second):
         for i in range(len(list_of_faces)):
