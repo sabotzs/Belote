@@ -6,6 +6,7 @@ class Dealer:
 	def shuffle_deck(deck):
 		shuffle(deck)
 
+	@staticmethod
 	def first(deck):
 		hands = ([],[],[],[])
 		to_deal = deck[:20]
@@ -21,6 +22,7 @@ class Dealer:
 
 		return hands
 
+	@staticmethod
 	def second(deck):
 		hands = ([],[],[],[])
 		to_deal = deck[20:]
