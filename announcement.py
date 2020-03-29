@@ -32,7 +32,6 @@ class Announcement:
                 if suit[i].face == 'Q' and suit[i+1].face == 'K':
                     element = Belote([suit[i],suit[i+1]])
                     belotes.append(element)
-        
         return belotes
 
     def get_carres(self, hand):
