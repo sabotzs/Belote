@@ -1,3 +1,4 @@
+from utils import sort_hand
 class Player:
     def __init__(self, name):
         self.name = name
@@ -17,4 +18,3 @@ class Player:
 
     def announce(self):
         pass
-
