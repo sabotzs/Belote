@@ -2,7 +2,7 @@ from consecutive import Consecutive
 from card import list_of_faces
 
 class Announcement:
-	def get_consecutives(self, hand):
+	def get_consecutive(self, hand):
 		cons = []
 		
 		for suit in hand:

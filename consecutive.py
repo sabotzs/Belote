@@ -1,6 +1,6 @@
 class Consecutive:
-	def __init__(self, cards):
-		self.cards = cards
+    def __init__(self,cards):
+        self.cards = cards
 
 	def __eq__(self, other):
 		return self.cards == other.cards
@@ -18,14 +18,3 @@ class Consecutive:
 			return 'quarte'
 		if len(self.cards) == 5:
 			return 'quinte'
-
-	def __int__(self):
-		if len(self.cards) == 3:
-			return 20
-		if len(self.cards) == 4:
-			return 50
-		if len(self.cards) == 5:
-			return 100
-
-	def __repr__(self):
-		return self.__str__()
