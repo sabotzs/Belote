@@ -1,13 +1,21 @@
-from players import Player
+from player import Player
 
 class Team:
-    def __init__(self,name,first_player,second_player):
-        if type(name) is not str:
-            raise TypeError('Only strings are alowed for team names')
-        if type(first_player) is not Player:
-            raise TypeError('Only players are allowed!')
-        if type(second_player) is not Player:
-            raise TypeError('Only players are allowed!')
-        self,name = name
-        self.first_player = first_player
-        self.second_player = second_player
+	def __init__(self, name, first, second):
+		if not isinstance(first, Player):
+			raise TypeError("Invalid type, expected Player.")
+		if not isinstance(second, Player):
+			raise TypeError("Invalid type, expected Player.")
+
+		self.name = name
+		self.first = first
+		self.second = second
+
+	def get_announcements(self):
+		announcements = self.first.announcements
+		
+		for ann in self.second.announcements:
+			announcements.append(ann)
+
+		return announcements
+
