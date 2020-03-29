@@ -11,6 +11,11 @@ class Consecutive:
 
         return len(self.cards) > len(other.cards)
 
+    def equal_power(self,other):
+        if len(self.cards) == len(other.cards):
+            return self.cards[0].face == other.cards[0].face
+        return False
+
     def __int__(self):
         if len(self.cards) == 3:
             return 20

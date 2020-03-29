@@ -10,6 +10,7 @@ class Team:
         self.name = name
         self.first = first
         self.second = second
+        self.wins = 0
 
     def get_announcements(self):
         announcements = self.first.announcements
@@ -17,6 +18,9 @@ class Team:
         for ann in self.second.announcements:
             announcements.append(ann)
 
-        announcements = sorted(announcements, key = lambda a: int(a))
+        announcements = sorted(announcements, key = lambda a: int(a), reversed = True)
 
         return announcements
+
+    def increment_wins(self):
+        self.wins+=1
