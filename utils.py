@@ -29,15 +29,11 @@ def sort_hand_by_face(hand, new_hand, first_idx, second_idx):
     new_hand.append(new_part)
     sort_hand_by_face(hand, new_hand, second_idx, second_idx + 1)
 
-# def reduce(lists):
-#   result = []
-#   for lst in lists:
-#       for el in lst:
-#           result.append(el)
-#   return result
-
 def sort_hand(hand):
     hand = sorted(hand, key = lambda e: e.suit)
     parts = []
     sort_hand_by_face(hand, parts, 0, 1)
+    while len(parts) < 4:
+        parts.append([])
+        
     return parts

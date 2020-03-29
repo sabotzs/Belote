@@ -11,6 +11,14 @@ class Consecutive:
 
         return len(self.cards) > len(other.cards)
 
+    def __int__(self):
+        if len(self.cards) == 3:
+            return 20
+        if len(self.cards) == 4:
+            return 50
+        if len(self.cards) == 5:
+            return 100
+
     def __str__(self):
         if len(self.cards) == 3:
             return 'tierce'

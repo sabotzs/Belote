@@ -21,15 +21,17 @@ class Announcement:
             if counter > 2:
                 element = Consecutive(suit[len(suit)-counter:])
                 cons.append(element)
+        
         return cons
 
     def get_belotes(self, hand):
         belotes = []
         
         for suit in hand:
-            for i in range(len(suit)+1):
-                if suit[i].face == 'Q' and suit[i+1] == 'K':
-                    belote.append(Belote([suit[i],suit[i+1]]))
+            for i in range(len(suit)-1):
+                if suit[i].face == 'Q' and suit[i+1].face == 'K':
+                    element = Belote([suit[i],suit[i+1]])
+                    belotes.append(element)
         
         return belotes
 

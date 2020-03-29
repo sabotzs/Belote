@@ -1,4 +1,5 @@
 from utils import sort_hand
+from announcement import Announcement
 
 class Player:
     def __init__(self, name):
@@ -11,11 +12,19 @@ class Player:
         return self.name == other.name
 
     def get_cards(self, cards):
-        if len(self.hand) == 8:
-            self.hand = []
+        self.hand = []
 
         for card in cards:
             self.hand.append(card)
 
     def announce(self):
-        pass
+        self.announcements = []
+        self.points = 0
+
+        ann = Announcement()
+        
+        suits = sort_hand(self.hand)
+        self.announcements = ann.get_announcements(suits)
+
+        for player_ann in self.announcements:
+            self.points += int(player_ann)
