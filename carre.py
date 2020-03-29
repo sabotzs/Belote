@@ -11,4 +11,10 @@ class Carre:
             return 100
 
     def __repr__(self):
-        return str(self.cards)
+        return 'carre'
+
+    def __eq__(self, other):
+        return self.cards == other.cards
+
+    def __str__(self):
+        return 'carre'

@@ -2,6 +2,7 @@ from consecutive import Consecutive
 from carre import Carre
 from belote import Belote
 from card import list_of_faces
+from carre import Carre
 
 
 class Announcement:
@@ -20,7 +21,6 @@ class Announcement:
             if counter > 2:
                 element = Consecutive(suit[len(suit)-counter:])
                 cons.append(element)
-
         return cons
 
     def get_belotes(self, hand):
@@ -37,15 +37,18 @@ class Announcement:
         carres = []
 
         for club in hand[0]:
-            helper = [club]
-            for i in range(1,4):
-                for card in hand[i]:
-                    if card.face == club.face:
-                        helper.append(card)
-            if len(helper) == 4:
-                carres.append(Carre(helper))
+            if club.face != '7' and club.face != '8':
+                helper = [club]
+                for i in range(1,4):
+                    for card in hand[i]:
+                        if card.face == club.face:
+                            helper.append(card)
+                if len(helper) == 4:
+                    element = Carre(helper)
+                    carres.append(element)
 
         return carres
+
 
     def check_consecutive_and_carres(self,consecs, carres):
         for carre_idx in range(len(carres)):
@@ -62,7 +65,6 @@ class Announcement:
                         del carres[carre_idx]
                         --carre_idx
 
-
     def get_announcements(self,hand):
         consecutives = self.get_consecutives(hand)
         carres = self.get_carres(hand)
@@ -73,7 +75,6 @@ class Announcement:
             announcements.append(consec)
         for carre in carres:
             announcements.append(carre)
-
         return announcements
 
     def are_consecutive(self, first, second):
