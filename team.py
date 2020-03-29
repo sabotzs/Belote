@@ -18,3 +18,4 @@ class Team:
 			announcements.append(ann)
 
 		return announcements
+
