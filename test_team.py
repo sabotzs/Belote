@@ -1,6 +1,6 @@
 import unittest
 from team import Team
-from players import Player
+from player import Player
 
 class TestTeam(unittest.TestCase):
     def test_team_without_players(self):

@@ -24,3 +24,14 @@ class Team:
 
     def increment_wins(self):
         self.wins+=1
+
+    def __eq__(self,other):
+        if self.name == other.name and self.first == other.first and self.second == other.second:
+            return True
+        return False
+
+    def different_players(self,other):
+        if self.first == other.first or self.second == other.second or self.second == other.first or self.second == other.second:
+            return False
+        return True
+

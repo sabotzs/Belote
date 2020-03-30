@@ -14,6 +14,8 @@ class Game:
     def __init__(self,team_one,team_two):
         if type(team_one) is not Team or type(team_two) is not Team:
             raise TypeError('Invalid input for team')
+        if team_one.different_players(team_two) is False:
+            raise TypeError('Teams cannot be created with commom players')
         self.team_one = team_one
         self.team_two = team_two
         self.table_players = [self.team_one.first,self.team_two.first,self.team_one.second,self.team_two.second]
@@ -99,6 +101,12 @@ class Game:
         for i in range(len(announcements)):
             score += int(announcements[i])
         return score
+
+    def print_table_players(self):
+        table = ""
+        for i in range(len(self.table_players)):
+            table += self.table_players[i].name + " "
+        return table
 
 
 
