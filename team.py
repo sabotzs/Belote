@@ -18,7 +18,7 @@ class Team:
         for ann in self.second.announcements:
             announcements.append(ann)
 
-        announcements = sorted(announcements, key = lambda a: int(a), reversed = True)
+        announcements = sorted(announcements, key = lambda a: int(a), reverse = True)
 
         return announcements
 

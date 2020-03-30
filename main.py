@@ -5,7 +5,7 @@ from player import Player
 from team import Team
 
 def play_game(team_one_name,team_two_name,t1_name_1,t1_name_2,t2_name_1,t2_name_2):
-    team_one = Team(team_two_name,Player(t1_name_1),Player(t1_name_2))
+    team_one = Team(team_one_name,Player(t1_name_1),Player(t1_name_2))
     team_two = Team(team_two_name,Player(t2_name_1),Player(t2_name_2))
     game = Game(team_one,team_two)
     game.play()

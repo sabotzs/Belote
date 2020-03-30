@@ -12,7 +12,7 @@ class Player:
         return self.name == other.name
 
     def get_cards(self, cards):
-        if len(hand) == 8:
+        if len(self.hand) == 8:
             self.hand = []
 
         for card in cards:
