@@ -27,5 +27,8 @@ class Player:
         suits = sort_hand(self.hand)
         self.announcements = ann.get_announcements(suits)
 
-        for player_ann in self.announcements:
-            self.points += int(player_ann)
+
+    def get_points(self, team_ann):
+        for ann in team_ann:
+            if ann in self.announcements:
+                self.points += int(ann)

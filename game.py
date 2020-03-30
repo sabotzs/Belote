@@ -73,6 +73,7 @@ class Game:
         Dealer.shuffle_deck(self.deck)
         first_dealing = Dealer.first(self.deck)
         second_dealing = Dealer.second(self.deck)
+        
         for i in range(len(self.table_players)):
             self.table_players[i].get_cards(first_dealing[i])
             self.table_players[i].get_cards(second_dealing[i])
@@ -84,9 +85,17 @@ class Game:
         self.filter_announcements(t1_announcements)
         self.filter_announcements(t2_announcements)
         self.compare_announcements(t1_announcements,t2_announcements)
-        self.spin_players()
+
+        for player in table_players:
+            if player in self.team_one:
+                player.get_points(t1_announcements)
+            else:
+                player.get_points(t2_announcements)
+        
         t1_score = self.get_score_of_round(t1_announcements)
         t2_score = self.get_score_of_round(t2_announcements)
+        
+        self.spin_players()
         return t1_score, t2_score
 
 
