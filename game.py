@@ -28,13 +28,13 @@ class Game:
         total_len = len1 + len2 + 1
 
         with open('result.txt', 'w') as result_file:
-            result_file.write(f'{self.team_one.name.center(len1)}|{self.team_two.name.center(len2)}')
-            result_file.write(f'{total_len*'='}')
+            result_file.write(f'{self.team_one.name.center(len1)}|{self.team_two.name.center(len2)}\n')
+            result_file.write(f'{total_len*'='}\n')
             while self.team_one.wins < 2 and self.team_two.wins < 2:
                 self.run_game(result_file)
-                result_file.write(f'{total_len*'='}')
-                result_file.write(f'({self.team_one.wins})'.center(len1)+'|'+f'({self.team_two.wins})'.center(len2))
-                result_file.write(f'{total_len*'='}')
+                result_file.write(f'{total_len*'='}\n')
+                result_file.write(f'({self.team_one.wins})'.center(len1)+'|'+f'({self.team_two.wins})'.center(len2)+'\n')
+                result_file.write(f'{total_len*'='}\n')
 
     def run_game(self, result_file):
         team_one_score, team_two_score = 0
@@ -42,13 +42,13 @@ class Game:
             tpl = self.round()
             
             if team_one_score == 0:
-                result_file.write(f'{tpl[0]}'.ljust(17))
+                result_file.write(f'{tpl[0]}'.ljust(17) + '|')
             else:
-                result_file.write(f'{team_one_score} + {tpl[0]}'.ljust(17))
+                result_file.write(f'{team_one_score} + {tpl[0]}'.ljust(17) + '|')
             if team_one_score == 0:
-                result_file.write(f'{tpl[1]}'.ljust(17))
+                result_file.write(f'{tpl[1]}'.ljust(17) + '\n')
             else:
-                result_file.write(f'{team_two_score} + {tpl[1]}'.ljust(17))
+                result_file.write(f'{team_two_score} + {tpl[1]}'.ljust(17) + '\n')
             
             team_one_score += tpl[0]
             team_two_score += tpl[1]
@@ -56,7 +56,6 @@ class Game:
             self.team_one.increment_wins()
         else:
             self.team_two.increment_wins()
-
 
     def choose_contract(self):
         self.round_contract = random.choice(list_of_contracts)
