@@ -91,7 +91,7 @@ class Game:
         else:
             for i in range(len(team_announcements)):
                 if type(team_announcements[i]) is Belote:
-                    if team_announcements[i].cards[0].suit == self.round_contract:
+                    if team_announcements[i].cards[0].suit != self.round_contract:
                         del team_announcements[i]
                         i-=1
 
