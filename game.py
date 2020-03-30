@@ -29,26 +29,29 @@ class Game:
 
         with open('result.txt', 'w') as result_file:
             result_file.write(f'{self.team_one.name.center(len1)}|{self.team_two.name.center(len2)}\n')
-            result_file.write(f'{total_len*'='}\n')
-            while self.team_one.wins < 2 and self.team_two.wins < 2:
+            result_file.write(f'{total_len*"="}\n')
+            while self.team_one.wins != 2 and self.team_two.wins != 2:
                 self.run_game(result_file)
-                result_file.write(f'{total_len*'='}\n')
+                result_file.write(f'{total_len*"="}\n')
                 result_file.write(f'({self.team_one.wins})'.center(len1)+'|'+f'({self.team_two.wins})'.center(len2)+'\n')
-                result_file.write(f'{total_len*'='}\n')
+                result_file.write(f'{total_len*"="}\n')
 
     def run_game(self, result_file):
-        team_one_score, team_two_score = 0
-        while team_two_score < 151 and team_two_score < 151:
+        len1 = len(self.team_one.name) + 10
+        len2 = len(self.team_two.name) + 10
+
+        team_one_score, team_two_score = 0, 0
+        while team_one_score < 151 and team_two_score < 151:
             tpl = self.round()
             
             if team_one_score == 0:
-                result_file.write(f'{tpl[0]}'.ljust(17) + '|')
+                result_file.write(f'{tpl[0]}'.ljust(len1) + '|')
             else:
-                result_file.write(f'{team_one_score} + {tpl[0]}'.ljust(17) + '|')
+                result_file.write(f'{team_one_score} + {tpl[0]}'.ljust(len1) + '|')
             if team_one_score == 0:
-                result_file.write(f'{tpl[1]}'.ljust(17) + '\n')
+                result_file.write(f'{tpl[1]}'.ljust(len2) + '\n')
             else:
-                result_file.write(f'{team_two_score} + {tpl[1]}'.ljust(17) + '\n')
+                result_file.write(f'{team_two_score} + {tpl[1]}'.ljust(len2) + '\n')
             
             team_one_score += tpl[0]
             team_two_score += tpl[1]
@@ -66,57 +69,63 @@ class Game:
         self.table_players.append(gamer)
 
     def round(self):
+        self.choose_contract()
         Dealer.shuffle_deck(self.deck)
-        first_dealing = Dealer.first(deck)
-        second_dealing = Dealer.second(deck)
+        first_dealing = Dealer.first(self.deck)
+        second_dealing = Dealer.second(self.deck)
         for i in range(len(self.table_players)):
             self.table_players[i].get_cards(first_dealing[i])
             self.table_players[i].get_cards(second_dealing[i])
-        t1_annoncements = self.team_one.get_announcements()
-        t2_annoncements = self.team_two.get_announcements()
-        self.filter_announcements(t1_annoncements)
-        self.filter_announcements(t2_annoncements)
-        self.compare_announcements(t1_annoncements,t2_annoncements)
+            self.table_players[i].announce()
+            
+        t1_announcements = self.team_one.get_announcements()
+        t2_announcements = self.team_two.get_announcements()
+        
+        self.filter_announcements(t1_announcements)
+        self.filter_announcements(t2_announcements)
+        self.compare_announcements(t1_announcements,t2_announcements)
         self.spin_players()
         t1_score = self.get_score_of_round(t1_announcements)
         t2_score = self.get_score_of_round(t2_announcements)
         return t1_score, t2_score
 
 
-    def filter_announcement(self,team_announcements):
-        if round_contract == "No trumps":
+    def filter_announcements(self,team_announcements):
+        if self.round_contract == "No trumps":
             team_announcements = []
-        elif round_contract == "All trumps":
+        elif self.round_contract == "All trumps":
             return
         else:
-            for i in range(len(team_announcements)):
+            i = 0
+            while i < len (team_announcements):
                 if type(team_announcements[i]) is Belote:
                     if team_announcements[i].cards[0].suit != self.round_contract:
                         del team_announcements[i]
                         i-=1
+                i+=1
 
     def compare_announcements(self,t1_an,t2_an):
         if len(t1_an) == 0 or len(t2_an) == 0:
             return
-        i, j = 0
-        while i < len(t1_an) and type(t1_an[i]) != Consecutive:
+        i, j = 0, 0
+        while i < len(t1_an)-1 and type(t1_an[i]) != Consecutive:
             i+=1
-        while j < len(t2_an) and type(t2_an[j]) != Consecutive:
+        while j < len(t2_an)-1 and type(t2_an[j]) != Consecutive:
             j+=1
-        if t1_an[i].equal_power(t2_an[j]):
-            self.delete_consecutive(t1_an)
-            self.delete_consecutive(t2_an)
-        if t1_an[i].__gt__(t2_an[j]):
-            self.delete_consecutive(t2_an)
-        if t2_an[j].__gt__(t1_an[i]):
-            self.delete_consecutive(t1_an)
+        if type(t1_an[i]) is Consecutive and type(t2_an[j]) is Consecutive:
+            if t1_an[i].equal_power(t2_an[j]):
+                self.delete_consecutive(t1_an)
+                self.delete_consecutive(t2_an)
+            elif t1_an[i].__gt__(t2_an[j]):
+                self.delete_consecutive(t2_an)
+            elif t2_an[j].__gt__(t1_an[i]):
+                self.delete_consecutive(t1_an)
 
 
     def delete_consecutive(self,announcements):
-        for i in range(len(announcements)):
-            if type(announcements[i]) is Consecutive:
-                del announcements[i]
-                i-=1
+        for ann in announcements:
+            if type(ann) is Consecutive:
+                announcements.remove(ann)
 
     def get_score_of_round(self,announcements):
         score = 0

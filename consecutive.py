@@ -21,7 +21,7 @@ class Consecutive:
             return 20
         if len(self.cards) == 4:
             return 50
-        if len(self.cards) == 5:
+        if len(self.cards) >= 5:
             return 100
 
     def __str__(self):
@@ -29,5 +29,5 @@ class Consecutive:
             return 'tierce'
         if len(self.cards) == 4:
             return 'quarte'
-        if len(self.cards) == 5:
+        if len(self.cards) >= 5:
             return 'quinte'
